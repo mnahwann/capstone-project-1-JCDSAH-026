@@ -1,11 +1,6 @@
 from datetime import datetime  # mengambil fitur waktu/tanggal dari python
 
-# DataDummy
-# DictionaryBooks: untuk menyimpan data buku perpus
-# key utama = kode buku
-# value = dictionary berisi detail buku
-
-books = {
+books = { #DataDummy berupa dictionary books: untuk menyimpan data buku perpus; Primary Key: kode buku; value: dictionary berisi detail buku
     "BK001": {
         "judul": "Animal Farm",
         "penulis": "George Orwell",
@@ -78,17 +73,12 @@ books = {
     },
 }
 
-
-# Function menampilkan seluruh data buku
-def show_all_books():
-    # cek apakah ada data
-    if len(books) == 0:
+def show_all_books(): # Function Read: menampilkan seluruh data buku    
+    if len(books) == 0: # cek apakah ada data
         print("Tidak Ada Data Buku!")
     else:
-        print("\n=== DAFTAR BUKU ===")
-
-        # looping dictionary
-        for kode in books:
+        print("\n=== DAFTAR BUKU ===")        
+        for kode in books: # looping dictionary
             print(f"""
 Kode Buku : {kode}
 Judul     : {books[kode]['judul']}
@@ -97,35 +87,21 @@ Stok      : {books[kode]['stok']}
 Tahun     : {books[kode]['tahun']}
 Genre     : {books[kode]['genre']}
             """)
-
-
-# Function menambahkan buku
-def add_book():
-    print("\n=== TAMBAH BUKU ===")
-
-    # USER INPUT PRIMARY KEY
-    kode = input(
-        "Masukkan kode buku (0 untuk cancel): "
-    ).upper()  # .upper()-> mengubah huruf yg diinput menjadi upper case
+def add_book(): # Function Create: menambahkan buku
+    print("\n=== TAMBAH BUKU ===")    
+    kode = input("Masukkan kode buku (0 untuk cancel): ").upper() # USER INPUT PRIMARY KEY # .upper()-> mengubah huruf yg diinput menjadi upper case
     if kode == "0":
         print("Penambahan buku dibatalkan.")
-        return
-
-    # CEK DATA DUPLIKAT
-    if kode in books:
+        return    
+    if kode in books: # CEK DATA DUPLIKAT
         print("Data yang diinput sudah ada!")
-    else:
-        # USER INPUT DATA BUKU
-        judul = input("Masukkan judul buku: ")
+    else:        
+        judul = input("Masukkan judul buku: ") # USER INPUT DATA BUKU
         penulis = input("Masukkan nama penulis: ")
         stok = int(input("Masukkan stok buku: "))
         tahun = int(input("Masukkan tahun terbit:"))
-        genre = input("Masukkan genre buku:")
-
-        # SAVE DATA CHECKER
-        checker = input(
-            "Apakah data ingin disimpan? (y/n)"
-        ).lower()  # .lower()-> mengubah huruf yg diinput menjadi lower case
+        genre = input("Masukkan genre buku:")        
+        checker = input("Apakah data ingin disimpan? (y/n): ").lower() # SAVE DATA CHECKER  # .lower()-> mengubah huruf yg diinput menjadi lower case
         if checker == "y":
             books[kode] = {
                 "judul": judul,
@@ -137,22 +113,13 @@ def add_book():
             print("Data telah berhasil disimpan.")
         else:
             print("Data batal disimpan.")
-
-
-# Function Update Buku
-def update_book():
-    print("\n=== PERBARUI DATA BUKU ===")
-
-    # User input primary key
-    kode = input("Masukkan kode buku (0 untuk cancel): ").upper()
+def update_book(): # Function Update: memperbarui buku
+    print("\n=== PERBARUI DATA BUKU ===")    
+    kode = input("Masukkan kode buku (0 untuk cancel): ").upper() # User input primary key
     if kode == "0":
         print("Pembaruan data buku dibatalkan.")
-        return
-
-    # Cek ketersediaan data
-    if kode in books:
-
-        # Tampilkan data terdahulu
+        return    
+    if kode in books: # Cek ketersediaan data        
         print(f"""
 Kode Buku : {kode}
 Judul     : {books[kode]['judul']}
@@ -160,9 +127,8 @@ Penulis   : {books[kode]['penulis']}
 Stok      : {books[kode]['stok']}
 Tahun     : {books[kode]['tahun']}
 Genre     : {books[kode]['genre']}
-            """)
-
-        # Pilih kolom yang mau di-update
+            """) # Tampilkan data terdahulu
+                
         kolom = input("""
 Kolom yang ingin diperbarui:
 judul
@@ -170,20 +136,13 @@ penulis
 stok
 tahun
 genre
-Masukkan nama kolom: """).lower()
-
-        # Validasi nama kolom
-        if kolom in books[kode]:
-
-            # Input value Baru
-            value_baru = input("Masukkan data baru: ")
-
-            # Casting Integer
+Masukkan nama kolom: """).lower() # Pilih kolom yang mau di-update
+        
+        if kolom in books[kode]: # Validasi nama kolom            
+            value_baru = input("Masukkan data baru: ") # Input value Baru            
             if kolom == "stok" or kolom == "tahun":
-                value_baru = int(value_baru)
-
-            # Checker Update
-            checker = input("Apakah Anda ingin memperbarui data ini? (y/n): ").lower()
+                value_baru = int(value_baru) # Casting Integer            
+            checker = input("Apakah Anda ingin memperbarui data ini? (y/n): ").lower() # Checker Update
             if checker == "y":
                 books[kode][kolom] = value_baru
                 print("Data telah berhasil diperbarui.")
@@ -193,36 +152,24 @@ Masukkan nama kolom: """).lower()
             print("Kolom tidak valid!")
     else:
         print(
-            "Data buku yang anda cari tidak tersedia,\nSilakan input kode buku yang valid!"
+            "Kode buku yang anda cari tidak ditemukan,\nSilakan input kode buku yang valid!"
         )
-
-
-# FUNCTION menghapus entri buku
-def delete_book():
-    print("\n=== HAPUS DATA BUKU ===")
-
-    # User input primary key
-    kode = input("Masukkan kode buku yang ingin dihapus (0 untuk cancel): ").upper()
+def delete_book(): # Function Delete: menghapus entri buku
+    print("\n=== HAPUS DATA BUKU ===")    
+    kode = input("Masukkan kode buku yang ingin dihapus (0 untuk cancel): ").upper() # User input primary key
     if kode == "0":
         print("Penghapusan data dibatalkan.")
-        return
-    # Cek ketersediaan data
-    if kode in books:
-
-        # Tampilkan data
-        print(f"""
+        return    
+    if kode in books: # Cek ketersediaan data        
+        print(f""" 
 Kode Buku : {kode}
 Judul     : {books[kode]['judul']}
 Penulis   : {books[kode]['penulis']}
 Stok      : {books[kode]['stok']}
 Tahun     : {books[kode]['tahun']}
 Genre     : {books[kode]['genre']}
-            """)
-
-        # Checker Delete
-        checker = input(
-            "Apakah Anda yakin ingin menghapus data buku ini? (y/n): "
-        ).lower()
+            """) # Tampilkan data        
+        checker = input("Apakah Anda yakin ingin menghapus data buku ini? (y/n): ").lower() # Checker Delete
         if checker == "y":
             del books[kode]
             print("Data buku telah berhasil dihapus.")
@@ -232,117 +179,107 @@ Genre     : {books[kode]['genre']}
         print(
             "Data buku yang anda cari tidak tersedia,\nSilakan input kode buku yang valid!"
         )
-
-
-# Function Peminjaman Buku
-def borrow_book():
-    print("\n=== PEMINJAMAN BUKU ===")
-
-    # Cart Sementara
-    cart = []
-
-    # User input data peminjam
-    id_peminjam = input("Masukkan ID Peminjam: ")
-    nama_peminjam = input("Masukkan Nama Peminjam: ")
-
-    # Tanggal Pinjam
-    tanggal_pinjam = datetime.now()
-
-    while True:
-
-        # Tampilkan daftar buku
-        show_all_books()
-
-        # User input kode buku
-        kode_buku = input("Masukkan kode buku yang ingin dipinjam: ").upper()
-
-        # Validasi kode buku
-        if kode_buku in books:
-
-            # Cek Stok
-            if books[kode_buku]["stok"] > 0:
-
-                # Masukkan ke cart
-                cart.append(kode_buku)
-
-                print("Buku berhasil dimasukkan ke keranjang peminjaman.")
+def borrow_book(): # Function Borrow: peminjaman buku
+    print("\n=== PEMINJAMAN BUKU ===")    
+    cart = [] # Cart Sementara    
+    id_peminjam = input("Masukkan ID Peminjam: ")  # User input data peminjam
+    nama_peminjam = input("Masukkan Nama Peminjam: ")    
+    tanggal_pinjam = datetime.now() # Tanggal Pinjam
+    while True:        
+        show_all_books() # Tampilkan daftar buku        
+        kode_buku = input("Masukkan kode buku yang ingin dipinjam: ").upper() # User input kode buku
+        if kode_buku in books: # Validasi kode buku            
+            if books[kode_buku]["stok"] > 0: # Cek Stok                
+                if kode_buku in cart:
+                    print("Buku sudah ada di keranjang!")
+                else:
+                    cart.append(kode_buku) # Masukkan ke cart
+                    print("Buku berhasil dimasukkan ke keranjang peminjaman.")
             else:
                 print("Stok buku habis!")
         else:
-            print("Kode buku tidak ditemukan!")
-
-        # Tambah buku lagi?
-        lagi = input("Apakah Anda ingin menambah buku lain? (y/n): ").lower()
+            print("Kode buku tidak ditemukan!")        
+        lagi = input("Apakah Anda ingin menambah buku lain? (y/n): ").lower() # Tambah buku lagi?
         if lagi == "n":
             break
         elif lagi == "y":
             continue
         else:
             print("Input tidak valid!")
-
-    # Validasi cart kosong
-    if len(cart) == 0:
+    while True:
+        print("\n========= KERANJANG PEMINJAMAN =========") #Menampilkan isi cart
+        for item in cart:
+            print(f"""
+    Kode Buku   : {item}
+    Judul       : {books[item]['judul']}
+                  """)
+        cart_menu = input("""
+1. Hapus Buku dari keranjang
+2. Finalisasi Peminjaman
+3. Batalkan Peminjaman      
+                           """)
+        if cart_menu == "1": #Hapus buku dari cart
+            kode_hapus = input("Masukkan kode buku yang ingin dihapus dari keranjang: ").upper()
+            if kode_hapus in cart:
+                cart.remove(kode_hapus)
+                print("Buku berhasil dihapus dari keranjang.")
+            else:
+                print("Anda hanya dapat menghapus buku yang telah dimasukkan ke keranjang!")
+        elif cart_menu == "2": #Lanjut finalisasi peminjaman
+            break
+        elif cart_menu == "3": #Cancel peminjaman
+            print("Peminjaman dibatalkan.")
+            return
+        else:
+            print("Menu tidak valid!")    
+    if len(cart) == 0: # Validasi cart kosong
         print("Tidak ada buku yang dipinjam.")
-
-    else:
-        # Checker Finalisasi Peminjaman
-        checker = input("Finalisasi peminjaman? (y/n): ").lower()
+        return
+    else:        
+        checker = input("Finalisasi peminjaman? (y/n): ").lower() # Checker Finalisasi Peminjaman
         if checker == "y":
             for item in cart:
-                books[item]["stok"] -= 1
-
-            # Cetak Struk peminjaman
-            print("\n=== STRUK PEMINJAMAN ===")
+                books[item]["stok"] -= 1            
+            print("\n=== STRUK PEMINJAMAN ===") # Cetak Struk peminjaman
 
             print(f"ID Peminjam    : {id_peminjam}")
             print(f"Nama           : {nama_peminjam}")
             print(f"Tanggal Pinjam : {tanggal_pinjam}")
-
-            print("\nDaftar Buku:")
-
-            # Loop cart
-            for item in cart:
+            print("\nDaftar Buku:")            
+            for item in cart: # Loop cart
                 print(f"- {books[item]['judul']}")
-
             print("\nCatatan: ")
             print("- Batas Peminjaman buku adalah 7 hari.")
-            print("- Denda Keterlambatan adalah Rp 10.000/hari.")
-            print("- Menghilangkan atau merusak buku wajib mengganti sesuai harga buku")
+            print("- Keterlambatan pengembalian buku dikenakan denda sebesar Rp 10.000/hari.")
+            print("- Menghilangkan atau merusak buku wajib mengganti sesuai harga buku asli!")
             print("\n=== TERIMA KASIH SUDAH MEMINJAM BUKU, SELAMAT MEMBACA! ===")
-
         else:
             print("Peminjaman dibatalkan.")
-
-
-# WhileTrue: digunakan agar program terus berjalan sampai user memilih exit
-while True:
-    # user menginput menu-> user memilih menu aplikasi
-
+while True: # WhileTrue: digunakan agar program terus berjalan sampai user memilih exit  
     menu = input("""
                  
-=== APLIKASI PEMINJAMAN BUKU PERPUSTAKAAN ===
+========= APLIKASI PEMINJAMAN BUKU PERPUSTAKAAN =========
                  
 1. Tampilkan Koleksi Buku
-2. Tambah Buku
-3. Perbarui Buku
+2. Tambah Entri Data Buku Baru
+3. Perbarui Entri Data Buku
 4. Hapus Buku
 5. Peminjaman Buku
 6. Exit
                  
-Pilih Menu: """)
-
-    # MENU 1_READ: menampilkan seluruh data buku
-    if menu == "1":
+Silakan Pilih Menu Utama [1-6]: """) # user menginput menu-> user memilih menu aplikasi   
+    if menu == "1": # MENU 1_READ: menampilkan seluruh data buku
         while True:
             read_menu = input("""
-=== MENU TAMPILKAN BUKU ===
+========= TAMPILKAN KOLEKSI BUKU =========
+                              
 1. Tampilkan Semua Buku
 2. Cari Buku Berdasarkan Kode
 3. Kembali Ke Menu Utama
 
-Pilih Menu: """)
+Silakan Pilih Sub-Menu [1-3]: """)
 
-            if read_menu == "1":
+            if read_menu == "1": # MENU 1_READ: menampilkan seluruh data buku
                 show_all_books()
             elif read_menu == "2":
                 kode = input("Masukkan kode buku: ").upper()
@@ -360,64 +297,54 @@ Genre     : {books[kode]['genre']}
             elif read_menu == "3":
                 break
             else:
-                print("Menu tidak valid!")
-
-        # MENU 2_CREATE:menambahkan data buku baru ke dictionary books
-    elif menu == "2":
+                print("Menu tidak valid!")        
+    elif menu == "2": # MENU 2_CREATE:menambahkan data buku baru ke dictionary books
         while True:
             create_menu = input("""
-=== MENU TAMBAH BUKU ===
+========= MENAMBAHKAN ENTRI DATA BUKU =========
                                 
 1. Tambah Buku Baru
 2. Kembali ke Menu Utama
                                 
-Pilih menu: """)
+Silakan Pilih Sub-Menu [1-2]: """)
             if create_menu == "1":
                 add_book()
             elif create_menu == "2":
                 break
             else:
-                print("Menu tidak valid!")
-
-        # MENU 3_UPDATE: mengubah data stok buku
-    elif menu == "3":
+                print("Menu tidak valid!")        
+    elif menu == "3": # MENU 3_UPDATE: memperbarui/mengubah data buku
         while True:
             update_menu = input("""
-=== MENU UPDATE BUKU ===
+========= PERBARUI ENTRI DATA BUKU =========
                                 
-1. Update Data Buku
+1. Perbarui Data Buku
 2. Kembali ke Menu Utama
                                 
-Pilih Menu: """)
+Silakan Pilih Sub-Menu [1-2]: """)
             if update_menu == "1":
                 update_book()
             elif update_menu == "2":
                 break
             else:
-                print("Menu tidak valid!")
-
-        # MENU 4_DELETE: menghapus data buku dari dictionary
-    elif menu == "4":
+                print("Menu tidak valid!")        
+    elif menu == "4": # MENU 4_DELETE: menghapus data buku dari dictionary
         while True:
             delete_menu = input("""
-=== MENU HAPUS BUKU ===
+========= MENGHAPUS DATA BUKU =========
                                 
 1. Hapus Data Buku
 2. Kembali ke Menu Utama
                                 
-Pilih menu: """)
+Silakan Pilih Sub-Menu [1-2]: """)
             if delete_menu == "1":
                 delete_book()
             elif delete_menu == "2":
                 break
             else:
-                print("Menu tidak valid!")
-
-        # PeminjamanBuku-> proses peminjaman buku oleh member perpustakaan
-    elif menu == "5":
-        borrow_book()
-
-        # EXIT-> menghentikan program
-    elif menu == "6":
+                print("Menu tidak valid!")        
+    elif menu == "5": # MENU 5_ borrow_book -> proses peminjaman buku dari pov pustakawan selaku user yg memfasilitasi peminjam
+        borrow_book()      
+    elif menu == "6": # MENU 6_EXIT-> menghentikan program
         print("Program Ditutup. Terima Kasih.")
         break
